@@ -3,6 +3,12 @@ class BooksController < ApplicationController
     @book = Book.all
   end
 
+  def create
+    book = Blog.new(book_params)
+    book.save
+    redirect_to books_path
+  end
+
   def show
   end
 
