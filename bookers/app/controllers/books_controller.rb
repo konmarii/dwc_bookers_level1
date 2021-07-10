@@ -1,9 +1,6 @@
 class BooksController < ApplicationController
   def index
-    @book = Book.all
-  end
-
-  def new
+    @books = Book.all
     @book = Book.new
   end
 
@@ -14,7 +11,8 @@ class BooksController < ApplicationController
       #notice: 'Book was sccessfully updated.'
       flash[:notice_create]="Book was sccessfully created."
     else
-     flash.now[:alert] = 'メッセージを入力してください。'
+      @books = Book.all
+      render :index
     end
   end
 
@@ -33,12 +31,12 @@ class BooksController < ApplicationController
   end
 
   def update
-    book = Book.find(params[:id])
-    if book.update(book_params)
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
     redirect_to book_path(book.id)
     flash[:notice_update]="Book was sccessfully created."
     else
-    flash.now[:alert] = 'メッセージを入力してください。'
+    render :edit
     end
   end
 
