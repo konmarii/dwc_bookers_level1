@@ -9,8 +9,13 @@ class BooksController < ApplicationController
 
   def create
     @book = Book.new(book_params)
-    @book.save
-    redirect_to book_path(@book.id)
+    if @book.save
+      redirect_to book_path(@book.id)
+      #notice: 'Book was sccessfully updated.'
+      flash[:notice_create]="Book was sccessfully created."
+    else
+     flash.now[:alert] = 'メッセージを入力してください。'
+    end
   end
 
   def show
@@ -29,8 +34,12 @@ class BooksController < ApplicationController
 
   def update
     book = Book.find(params[:id])
-    book.update(book_params)
+    if book.update(book_params)
     redirect_to book_path(book.id)
+    flash[:notice_update]="Book was sccessfully created."
+    else
+    flash.now[:alert] = 'メッセージを入力してください。'
+    end
   end
 
   private
