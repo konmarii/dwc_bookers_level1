@@ -8,7 +8,6 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
     if @book.save
       redirect_to book_path(@book.id)
-      #notice: 'Book was sccessfully updated.'
       flash[:notice_create]="Book was successfully created."
     else
       @books = Book.all
